@@ -1,0 +1,79 @@
+Todo Application Backend - Business Requirements Document
+1. Project Overview
+The project is a backend API service for a todo application built using ASP.NET Core. The system allows users to create accounts, login, and manage their todo tasks with full CRUD operations.
+2. Technical Stack
+- Framework: ASP.NET Core
+- Database: SQL Server
+- ORM: Entity Framework Core
+- Project Structure: Clean Architecture pattern
+3. Database Schema
+User Table:Id INT PRIMARY KEY IDENTITY(1,1),userName NVARCHAR(MAX),password NVARCHAR(MAX)
+TodoTask Table: Id INT PRIMARY KEY IDENTITY(1,1),Title NVARCHAR(MAX) NOT NULL,Completed BIT,DueDate DATETIME2,CompletedDate DATETIME2,UserId INT
+4. Project Structure
+Models
+1. User Model: Id (int, Key),userName (string, nullable),password (string, nullable)
+2. TodoTask Model: Id (int, Key),Title (string, Required),Completed (boolean),DueDate (DateTime?, nullable),CompletedDate (DateTime?, nullable),UserId (int)
+Database Context: Class name: DatabaseContext,Connection string: "Data Source="";Initial Catalog="";Integrated Security=True;Encrypt=False;"
+DbSet properties:Users,Tasks
+
+Interfaces
+1. ITaskfunctionality:
+   - Methods:Task<IEnumerable<TodoTask>> GetUserTasksAsync(int userId),Task<TodoTask> AddTaskAsync(TodoTask task),Task<TodoTask> UpdateTaskAsync(TodoTask task),Task<bool> DeleteTaskAsync(int taskId, int userId),Task<bool> DeleteAllTasksAsync(int userId)
+2. IUserfunctionality:
+   - Methods:int accountCreate(User user),int LoginAccount(User user)
+Service Implementation Classes
+1. TaskOperations:Implements: ITaskfunctionality,Dependencies: DatabaseContext (injected via constructor)
+   - Method Implementations:
+     - GetUserTasksAsync: Returns tasks filtered by userId
+     - AddTaskAsync: Adds new task and returns it
+     - UpdateTaskAsync: Updates existing task if found, returns null if not found
+     - DeleteTaskAsync: Deletes specific task for user, returns boolean success
+     - DeleteAllTasksAsync: Deletes all tasks for user, returns true
+2. UserOperations:Implements: IUserfunctionality,Dependencies: DatabaseContext (injected via constructor)
+   - Method Implementations:
+     - accountCreate: Adds new user and returns SaveChanges result
+     - LoginAccount: Validates credentials and returns user Id or 0 if invalid
+
+Controllers
+1. TaskController:Route: api/[controller],Dependencies: ITaskfunctionality (injected via constructor)
+   - Endpoints:
+     - GET api/task/{userId}: Returns all tasks for user
+     - POST api/task: Creates new task
+     - PUT api/task/{id}: Updates existing task
+     - DELETE api/task/{userId}/{id}: Deletes specific task
+     - DELETE api/task/{userId}: Deletes all tasks for user
+2. UserController:Route: api/[controller],Dependencies: IUserfunctionality (injected via constructor)
+   - Endpoints:
+     - POST api/user/CreateAccount: Creates new user account
+     - POST api/user/AccountLogin: Validates login credentials
+
+5. Implementation Requirements
+Error Handling
+1. Task creation requires valid UserId (>0)
+2. Task update requires matching Id in route and body
+3. Task deletion requires both userId and taskId
+4. Login returns 0 for invalid credentials
+Response Status Codes
+- 200 OK: Successful operations
+- 201 Created: Successful task creation
+- 400 Bad Request: Invalid input
+- 404 Not Found: Resource not found
+Authentication & Authorization
+- Basic user authentication through username/password
+- Tasks are isolated per user through UserId
+6. Additional Notes
+1. All task operations must verify UserId matches
+2. Database operations should be asynchronous where possible
+3. Use proper dependency injection for all services
+4. Maintain exact variable names as specified
+5. Follow the exact namespace structure: todoappbackend.{Controllers|Models|Service|Functionality|Database}
+
+7. Required Using Statements
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
