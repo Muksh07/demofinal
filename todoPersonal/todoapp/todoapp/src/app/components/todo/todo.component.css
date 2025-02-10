@@ -1,0 +1,384 @@
+.navbar {
+  background-color: #000000;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* .logo-container{
+  position: absolute;
+  left: 10px;
+} */
+
+.navbar-container {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo-text {
+  color: white; /* Cyberpunk-inspired cyan */
+  font-family: Yantramanav, sans-serif; /* Tech-like font */
+  font-size: 1.8rem;
+  font-weight: 600;
+  /* letter-spacing: 4px; */
+  text-transform: uppercase;
+  background: linear-gradient(90deg, white, white);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px white(0, 255, 255, 0.5);
+  transition: all 0.3s ease;
+ 
+}
+
+.logo-text:hover {
+  text-shadow: 0 0 15px white(0, 255, 255, 0.8);
+  transform: scale(1.05);
+}
+
+
+
+/* todo.component.css */
+.todo-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.input-container input[type="text"] {
+  flex: 2;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.input-container input[type="date"] {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.input-container button {
+  padding: 12px 20px;
+  background-color: orangered;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input-container button.clear-all {
+  background-color: black;
+}
+
+.input-container button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.stats {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.stats span {
+  font-weight: 500;
+  color: #495057;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.todo-item.overdue {
+  background-color: #fff5f5;
+  border-left: 4px solid #ff6b6b;
+  animation: pulseWarning 1.5s infinite;
+}
+
+@keyframes pulseWarning {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.todo-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.task-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.due-date {
+  font-size: 0.85em;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.completed-date {
+  color: #28a745;
+  font-size: 0.8em;
+}
+
+.actions button {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: all 0.2s ease;
+}
+
+.actions button:hover {
+  transform: scale(1.15);
+}
+
+.completed-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #eee;
+}
+
+.completed-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.completed-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  color: #6c757d;
+}
+
+.task-title {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .todo-container {
+    margin: 20px;
+    padding: 15px;
+  }
+  
+  .input-container {
+    flex-wrap: wrap;
+  }
+  
+  .input-container input, 
+  .input-container button {
+    width: 100%;
+  }
+}
+
+.logout-btn {
+  background: orangered;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px; /* Space from the To-Do list */
+}
+
+.logout-btn:hover {
+  background: orangered;
+}
+
+
+.edit-fields {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.edit-date-input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 160px;
+}
+
+.todo-item.editing .edit-fields input {
+  border-color: #FB4E0B;
+  box-shadow: 0 0 5px rgba(251, 78, 11, 0.2);
+}
+
+
+.tab-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.tab-button.active {
+  background: orangered;
+  color: white;
+  box-shadow: 0 2px 8px orangered(0,123,255,0.2);
+}
+
+.tab-button:hover:not(.active) {
+  background: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .tab-container {
+    gap: 8px;
+  }
+  
+  .tab-button {
+    flex: 1 1 45%;
+    text-align: center;
+    padding: 10px 15px;
+  }
+}
+
+
+
+.date-filter-container {
+  display: flex;
+  gap: 15px;
+  margin: 0 0 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.date-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.date-input-group label {
+  font-size: 0.9em;
+  color: #495057;
+  font-weight: 500;
+}
+
+.date-input-group input[type="date"] {
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: white;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .date-filter-container {
+    flex-direction: column;
+  }
+}
+
+
+/* Updated CSS for date filter section */
+.date-filter-container {
+display: flex;
+gap: 10px;
+margin: 0 0 20px 0;
+padding: 15px;
+background: #f8f9fa;
+border-radius: 8px;
+align-items: flex-end;
+}
+
+.date-input-group {
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.date-filter-btn {
+padding: 12px 20px;
+background-color: #17a2b8;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.3s ease;
+height: 42px;
+}
+
+.date-filter-btn:disabled {
+background-color: #6c757d;
+cursor: not-allowed;
+opacity: 0.65;
+}
+
+.date-filter-btn:hover:not(:disabled) {
+background-color: #138496;
+transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+.date-filter-container {
+  flex-direction: column;
+}
+
+.date-input-group {
+  width: 100%;
+}
+
+.date-filter-btn {
+  width: 100%;
+  height: auto;
+  padding: 12px;
+}
+}

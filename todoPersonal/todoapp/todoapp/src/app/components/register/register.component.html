@@ -1,0 +1,23 @@
+<div class = "Outer">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <span class="logo-text">TodoAPP</span>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="register-container">
+    <h2>Register</h2>
+    <div class="register-form">
+      <input type="text" required="" [(ngModel)]="username" placeholder="Username" />
+      <input type="password" required="" [(ngModel)]="password" placeholder="Password" />
+      <input type="password" required="" [(ngModel)]="confirmPassword" placeholder="Confirm Password" />
+      <button (click)="register()">Register</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+      <p>Already have an account? <button class="link-button" (click)="router.navigate(['/login'])">Login</button></p>
+    </div>
+  </div>
+  

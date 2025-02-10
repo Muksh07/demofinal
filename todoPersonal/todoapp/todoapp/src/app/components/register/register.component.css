@@ -1,0 +1,120 @@
+.navbar {
+  background-color: #000000;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* .logo-container{
+  position: absolute;
+  left: 10px;
+} */
+
+.navbar-container {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo-text {
+  color: white; /* Cyberpunk-inspired cyan */
+  font-family: Yantramanav, sans-serif; /* Tech-like font */
+  font-size: 1.8rem;
+  font-weight: 600;
+  /* letter-spacing: 4px; */
+  text-transform: uppercase;
+  background: linear-gradient(90deg, white, white);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px white(0, 255, 255, 0.5);
+  transition: all 0.3s ease;
+ 
+}
+
+.logo-text:hover {
+  text-shadow: 0 0 15px white(0, 255, 255, 0.8);
+  transform: scale(1.05);
+}
+
+
+
+/* Center the register form */
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Input Fields */
+  .register-form input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  .register-form input:focus {
+    border-color: black;
+    outline: none;
+  }
+  
+  /* Register Button */
+  .register-form button {
+    width: 100%;
+    padding: 5px 20px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+  }
+  
+  .register-form button:hover {
+    background: black;
+  }
+  
+  /* Login Link */
+  .link-button {
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  
+  .link-button:hover {
+    text-decoration: underline;
+  }
+  
+  /* Error Message */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  /* Success Message */
+  .success {
+    color: #28a745;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

@@ -1,0 +1,123 @@
+<div class = "Outer">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <span class="logo-text">TodoAPP</span>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+
+<div class="todo-container">
+  <h2>To-Do List</h2>
+  <button (click)="logout()" class="logout-btn">Logout</button>
+
+  <div class="input-container">
+    <input [(ngModel)]="newTodo" 
+           placeholder="Enter a task..." 
+           (keydown.enter)="addTodo()"
+           aria-label="New task input">
+    <input type="date" 
+           [(ngModel)]="dueDate" 
+           [min]="today"
+           aria-label="Due date">
+    <button (click)="addTodo()">Add</button>
+    <button (click)="clearAll()" class="clear-all">Clear All</button>
+  </div>
+
+  <!-- Date Filter -->
+  <div class="date-filter-container">
+    <div class="date-input-group">
+      <label>From:</label>
+      <input type="date" 
+             [(ngModel)]="fromDate" 
+             [max]="toDate || today"
+             placeholder="Start date">
+    </div>
+    <div class="date-input-group">
+      <label>To:</label>
+      <input type="date"
+             [(ngModel)]="toDate"
+             [min]="fromDate || today"
+             placeholder="End date">
+    </div>
+    <button (click)="applyDateFilter()" 
+            class="date-filter-btn"
+            [disabled]="!fromDate && !toDate">
+      Apply Dates
+    </button>
+    <button (click)="resetFilters()" 
+            class="date-filter-btn reset-filter-btn">
+      Reset Filters
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-container">
+    <button 
+      *ngFor="let tab of tabs"
+      (click)="setActiveTab(tab)"
+      [class.active]="activeTab === tab"
+      class="tab-button"
+    >
+      {{ tab | titlecase }} ({{ getCount(tab) }})
+    </button>
+  </div>
+
+  <!-- Todo List -->
+  <ul class="todo-list">
+    <li *ngFor="let todo of filteredTodos" 
+        class="todo-item" 
+        [class.overdue]="isOverdue(todo) && !todo.completed">
+      <div class="todo-content">
+        <input type="checkbox" 
+               [checked]="todo.completed" 
+               (change)="toggleTodo(todo.id)" 
+               class="checkbox" />
+        
+        <div class="task-info">
+          <span *ngIf="editingId !== todo.id" 
+                [class.completed]="todo.completed">
+            {{ todo.title }}
+          </span>
+          
+          <div *ngIf="editingId === todo.id" class="edit-fields">
+            <input [(ngModel)]="editingText" 
+                   class="edit-input"
+                   aria-label="Edit task">
+            <input type="date" 
+                   [(ngModel)]="editingDate" 
+                   [min]="today"
+                   class="edit-date-input"
+                   aria-label="Edit due date">
+          </div>
+          
+          <div class="due-date">
+            <span *ngIf="todo.dueDate">
+              Due: {{ todo.dueDate | date:'shortDate' }}
+            </span>
+            <span *ngIf="todo.completedDate" class="completed-date">
+              Completed: {{ todo.completedDate | date:'short' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button *ngIf="editingId !== todo.id" 
+                (click)="editTodo(todo.id, todo.title, todo.dueDate || '')"
+                class="edit">✏️</button>
+        <button *ngIf="editingId === todo.id" 
+                (click)="saveEdit(todo.id)" 
+                class="save">💾</button>
+        <button *ngIf="editingId === todo.id" 
+                (click)="cancelEdit()" 
+                class="cancel">❌</button>
+        <button (click)="deleteTodo(todo.id)" 
+                class="delete">🗑️</button>
+      </div>
+    </li>
+  </ul>
+</div>
