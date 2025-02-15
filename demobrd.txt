@@ -169,7 +169,70 @@ Parsed Folder Structure: [
 
 
 --------------------------------------------------------script-------------------------------------
+Application Name: Todo Application Backend
 
+1. Functional Requirements:
+   a. User Story:
+      - As a user, I want to create an account so that I can manage my todo tasks.
+      - As a user, I want to log in to my account so that I can access my todo tasks.
+      - As a user, I want to add, edit, delete, and view my todo tasks.
+      - As a user, I want to filter my todo tasks by status (All, Completed, Overdue, Pending).
+      - As a user, I want to log out of my account.
+
+   b. Use Cases:
+      - User Registration
+      - User Login
+      - Add Todo Task
+      - Edit Todo Task
+      - Delete Todo Task
+      - View Todo Tasks
+      - Filter Todo Tasks
+      - Logout
+
+   c. Functional Requirements:
+      - User can register with a username and password.
+      - User can log in with a username and password.
+      - User can add new todo tasks with a title and due date.
+      - User can edit existing todo tasks.
+      - User can delete todo tasks.
+      - User can view all their todo tasks.
+      - User can filter todo tasks by status.
+      - User can log out.
+
+   d. Data Requirements and data types:
+      - User: Id (int), userName (string), password (string)
+      - TodoTask: Id (int), Title (string), Completed (bool), DueDate (DateTime?), CompletedDate (DateTime?), UserId (int)
+
+   e. Integration:
+      - Frontend Angular application communicates with the backend API using HTTP requests.
+      - Backend API interacts with the SQL Server database using Entity Framework Core.
+
+2. Technical Specifications:
+   a. Architecture:
+      - Clean Architecture pattern
+
+   b. Components:
+      i. Frontend:
+         - Angular 17
+         - Components: Login, Register, Todo
+         - Services: AuthService, TodoService
+         - Models: Todo
+
+      ii. Backend:
+         - ASP.NET Core
+         - Controllers: UserController, TaskController
+         - Models: User, TodoTask
+         - Services: UserOperations, TaskOperations
+         - Interfaces: IUserFunctionality, ITaskFunctionality
+         - Database Context: DatabaseContext
+
+      iii. Data Access Layer:
+         - Entity Framework Core
+
+      iv. Data Flow:
+         - User interacts with the Angular frontend.
+         - Angular frontend sends HTTP requests to the ASP.NET Core backend.
+         - Backend processes requests, interacts with the database, and returns responses to the frontend.
 v. Solution Structure
          - Solution Name: TodoApplication
            - Root Folder: TodoApplication
