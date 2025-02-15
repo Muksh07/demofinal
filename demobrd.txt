@@ -305,5 +305,185 @@ vii. Unit Testing
 
 
 
+solution name: todoapplication
+root folder: todoapplication
+project name: frontend
+project path: todoapplication/todoapplication/
+project name: components
+project path: todoapplication/todoapplication/frontend/
+project name: login
+project path: todoapplication/todoapplication/frontend/components/
+file name: login.component.ts
+coding language: typescript
+technology stack: angular 17
+file purpose and context: redirects to the todo page on successful login, provides a link to the registration page
+methods: 
+methods name: login, purpose: authenticates user, parameters: username (string), password (string), output: boolean
 
+file name: login.component.html
+coding language: html
+technology stack: angular 17
+file purpose and context: template for login component
+
+file name: login.component.css
+coding language: css
+technology stack: angular 17
+file purpose and context: styles for login component
+
+project name: register
+project path: todoapplication/todoapplication/frontend/components/
+file name: register.component.ts
+coding language: typescript
+technology stack: angular 17
+file purpose and context: redirects to the login page on successful registration
+methods:
+methods name: register, purpose: registers new user, parameters: username (string), password (string), output: promise<boolean>
+
+file name: register.component.html
+coding language: html
+technology stack: angular 17
+file purpose and context: template for register component
+
+file name: register.component.css
+coding language: css
+technology stack: angular 17
+file purpose and context: styles for register component
+
+project name: todo
+project path: todoapplication/todoapplication/frontend/components/
+file name: todo.component.ts
+coding language: typescript
+technology stack: angular 17
+file purpose and context: displays a list of tasks with filtering options, allows adding, editing, and deleting tasks, supports task completion toggling, provides search and date range filtering
+methods:
+methods name: addtodo, purpose: adds new todo task, parameters: title (string), duedate (string), output: void
+methods name: edittodo, purpose: edits existing todo task, parameters: id (number), newtitle (string), newduedate (string), output: void
+methods name: deletetodo, purpose: deletes todo task, parameters: id (number), output: void
+methods name: toggletodo, purpose: toggles completion status of todo task, parameters: id (number), output: void
+methods name: loadtodos, purpose: loads all tasks, parameters: none, output: void
+methods name: clearall, purpose: deletes all tasks, parameters: none, output: void
+
+file name: todo.component.html
+coding language: html
+technology stack: angular 17
+file purpose and context: template for todo component
+
+file name: todo.component.css
+coding language: css
+technology stack: angular 17
+file purpose and context: styles for todo component
+
+project name: services
+project path: todoapplication/todoapplication/frontend/
+file name: auth.service.ts
+coding language: typescript
+technology stack: angular 17
+file purpose and context: provides authentication services
+methods:
+methods name: login, purpose: authenticates user, parameters: username (string), password (string), output: boolean
+methods name: register, purpose: registers new user, parameters: username (string), password (string), output: promise<boolean>
+methods name: logout, purpose: logs out user, parameters: none, output: void
+methods name: isloggedin, purpose: checks if user is logged in, parameters: none, output: boolean
+methods name: getcurrentuserid, purpose: gets current user id, parameters: none, output: number
+
+file name: todo.service.ts
+coding language: typescript
+technology stack: angular 17
+file purpose and context: provides services for todo tasks
+methods:
+methods name: loadtodos, purpose: loads all tasks, parameters: none, output: void
+methods name: addtodo, purpose: adds new todo task, parameters: title (string), duedate (string), output: void
+methods name: toggletodo, purpose: toggles completion status of todo task, parameters: id (number), output: void
+methods name: deletetodo, purpose: deletes todo task, parameters: id (number), output: void
+methods name: edittodo, purpose: edits existing todo task, parameters: id (number), newtitle (string), newduedate (string), output: void
+methods name: clearall, purpose: deletes all tasks, parameters: none, output: void
+
+project name: backend
+project path: todoapplication/todoapplication/
+file name: program.cs
+file name: startup.cs
+project name: controllers
+project path: todoapplication/todoapplication/backend/
+file name: taskcontroller.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: provides endpoints for task operations
+methods:
+methods name: getusertasksasync, purpose: returns tasks filtered by userid, parameters: userid (int), output: task<ienumerable<todotask>>
+methods name: addtaskasync, purpose: adds new task, parameters: task (todotask), output: task<todotask>
+methods name: updatetaskasync, purpose: updates existing task, parameters: task (todotask), output: task<todotask>
+methods name: deletetaskasync, purpose: deletes specific task, parameters: taskid (int), userid (int), output: task<bool>
+methods name: deletealltasksasync, purpose: deletes all tasks, parameters: userid (int), output: task<bool>
+
+file name: usercontroller.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: provides endpoints for user operations
+methods:
+methods name: accountcreate, purpose: creates new user account, parameters: user (user), output: int
+methods name: loginaccount, purpose: validates login credentials, parameters: user (user), output: int
+
+project name: models
+project path: todoapplication/todoapplication/backend/
+file name: user.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: represents user entity
+properties: id (int, key), username (string, nullable), password (string, nullable)
+
+file name: todotask.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: represents todo task entity
+properties: id (int, key), title (string, required), completed (boolean), duedate (datetime?), completeddate (datetime?), userid (int)
+
+project name: service
+project path: todoapplication/todoapplication/backend/
+file name: taskoperations.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: implements task functionalities
+methods:
+methods name: getusertasksasync, purpose: returns tasks filtered by userid, parameters: userid (int), output: task<ienumerable<todotask>>
+methods name: addtaskasync, purpose: adds new task, parameters: task (todotask), output: task<todotask>
+methods name: updatetaskasync, purpose: updates existing task, parameters: task (todotask), output: task<todotask>
+methods name: deletetaskasync, purpose: deletes specific task, parameters: taskid (int), userid (int), output: task<bool>
+methods name: deletealltasksasync, purpose: deletes all tasks, parameters: userid (int), output: task<bool>
+
+file name: useroperations.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: implements user functionalities
+methods:
+methods name: accountcreate, purpose: creates new user account, parameters: user (user), output: int
+methods name: loginaccount, purpose: validates login credentials, parameters: user (user), output: int
+
+project name: functionality
+project path: todoapplication/todoapplication/backend/
+file name: itaskfunctionality.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: interface for task functionalities
+methods:
+methods name: getusertasksasync, purpose: returns tasks filtered by userid, parameters: userid (int), output: task<ienumerable<todotask>>
+methods name: addtaskasync, purpose: adds new task, parameters: task (todotask), output: task<todotask>
+methods name: updatetaskasync, purpose: updates existing task, parameters: task (todotask), output: task<todotask>
+methods name: deletetaskasync, purpose: deletes specific task, parameters: taskid (int), userid (int), output: task<bool>
+methods name: deletealltasksasync, purpose: deletes all tasks, parameters: userid (int), output: task<bool>
+
+file name: iuserfunctionality.cs
+coding language: c#
+technology stack: asp.net core
+file purpose and context: interface for user functionalities
+methods:
+methods name: accountcreate, purpose: creates new user account, parameters: user (user), output: int
+methods name: loginaccount, purpose: validates login credentials, parameters: user (user), output: int
+
+project name: database
+project path: todoapplication/todoapplication/backend/
+file name: databasecontext.cs
+coding language: c#
+technology stack: asp.net core, entity framework core
+file purpose and context: database context for entity framework core
+properties: dbset<user> users, dbset<todotask> tasks
 
