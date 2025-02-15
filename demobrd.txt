@@ -1,79 +1,246 @@
-Todo Application Backend - Business Requirements Document
-1. Project Overview
-The project is a backend API service for a todo application built using ASP.NET Core. The system allows users to create accounts, login, and manage their todo tasks with full CRUD operations.
-2. Technical Stack
-- Framework: ASP.NET Core
-- Database: SQL Server
-- ORM: Entity Framework Core
-- Project Structure: Clean Architecture pattern
-3. Database Schema
-User Table:Id INT PRIMARY KEY IDENTITY(1,1),userName NVARCHAR(MAX),password NVARCHAR(MAX)
-TodoTask Table: Id INT PRIMARY KEY IDENTITY(1,1),Title NVARCHAR(MAX) NOT NULL,Completed BIT,DueDate DATETIME2,CompletedDate DATETIME2,UserId INT
-4. Project Structure
-Models
-1. User Model: Id (int, Key),userName (string, nullable),password (string, nullable)
-2. TodoTask Model: Id (int, Key),Title (string, Required),Completed (boolean),DueDate (DateTime?, nullable),CompletedDate (DateTime?, nullable),UserId (int)
-Database Context: Class name: DatabaseContext,Connection string: "Data Source="";Initial Catalog="";Integrated Security=True;Encrypt=False;"
-DbSet properties:Users,Tasks
+Parsed Folder Structure: [
+  {
+    "name": "todoapplication",
+    "type": "folder",
+    "expanded": true,
+    "children": [
+      {
+        "name": "todoapplication",
+        "type": "folder",
+        "expanded": true,
+        "children": [
+          {
+            "name": "todoapplication",
+            "type": "folder",
+            "expanded": false,
+            "children": [
+              {
+                "name": "todoapplication",
+                "type": "folder",
+                "expanded": false,
+                "children": [
+                  {
+                    "name": "frontend",
+                    "type": "folder",
+                    "expanded": false,
+                    "children": [
+                      {
+                        "name": "components",
+                        "type": "folder",
+                        "expanded": false,
+                        "children": [
+                          {
+                            "name": "login.component.ts",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "login.component.html",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "login.component.css",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "register.component.ts",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "register.component.html",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "register.component.css",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "todo.component.ts",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "todo.component.html",
+                            "type": "file",
+                            "content": ""
+                          },
+                          {
+                            "name": "todo.component.css",
+                            "type": "file",
+                            "content": ""
+                          }
+                        ]
+                      },
+                      {
+                        "name": "auth.service.ts",
+                        "type": "file",
+                        "content": "\n- methods:\n- login(username: string, password: string): boolean\n- register(username: string, password: string): promise<boolean>\n- logout(): void\n- isloggedin(): boolean\n- getcurrentuserid(): number"
+                      },
+                      {
+                        "name": "todo.service.ts",
+                        "type": "file",
+                        "content": "\n- methods:\n- loadtodos(): void\n- addtodo(title: string, duedate: string): void\n- toggletodo(id: number): void\n- deletetodo(id: number): void\n- edittodo(id: number, newtitle: string, newduedate: string): void\n- clearall(): void"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "program.cs",
+                    "type": "file",
+                    "content": ""
+                  },
+                  {
+                    "name": "startup.cs",
+                    "type": "file",
+                    "content": ""
+                  },
+                  {
+                    "name": "backend",
+                    "type": "folder",
+                    "expanded": false,
+                    "children": [
+                      {
+                        "name": "taskcontroller.cs",
+                        "type": "file",
+                        "content": "\n- taskcontroller\n- route: api/[controller]\n- dependencies: itaskfunctionality (injected via constructor)\n- endpoints:\n- get api/task/{userid}: returns all tasks for user\n- post api/task: creates new task\n- put api/task/{id}: updates existing task\n- delete api/task/{userid}/{id}: deletes specific task\n- delete api/task/{userid}: deletes all tasks for user"
+                      },
+                      {
+                        "name": "usercontroller.cs",
+                        "type": "file",
+                        "content": "\n- usercontroller\n- route: api/[controller]\n- dependencies: iuserfunctionality (injected via constructor)\n- endpoints:\n- post api/user/createaccount: creates new user account\n- post api/user/accountlogin: validates login credentials"
+                      },
+                      {
+                        "name": "user.cs",
+                        "type": "file",
+                        "content": "\n- id (int, key)\n- username (string, nullable)\n- password (string, nullable)"
+                      },
+                      {
+                        "name": "todotask.cs",
+                        "type": "file",
+                        "content": "\n- id (int, key)\n- title (string, required)\n- completed (boolean)\n- duedate (datetime2)"
+                      },
+                      {
+                        "name": "taskoperations.cs",
+                        "type": "file",
+                        "content": "\n- implements itaskfunctionality\n- dependencies: databasecontext (injected via constructor)\n- methods:\n- getusertasksasync: returns tasks filtered by userid\n- addtaskasync: adds new task and returns it\n- updatetaskasync: updates existing task if found, returns null if not found\n- deletetaskasync: deletes specific task for user, returns boolean success\n- deletealltasksasync: deletes all tasks for user, returns true"
+                      },
+                      {
+                        "name": "useroperations.cs",
+                        "type": "file",
+                        "content": "\n- implements iuserfunctionality\n- dependencies: databasecontext (injected via constructor)\n- methods:\n- accountcreate: adds new user and returns savechanges result\n- loginaccount: validates credentials and returns user id or 0 if invalid"
+                      },
+                      {
+                        "name": "itaskfunctionality.cs",
+                        "type": "file",
+                        "content": "\n- methods:\n- task<ienumerable<todotask>> getusertasksasync(int userid)\n- task<todotask> addtaskasync(todotask task)\n- task<todotask> updatetaskasync(todotask task)\n- task<bool> deletetaskasync(int taskid, int userid)\n- task<bool> deletealltasksasync(int userid)"
+                      },
+                      {
+                        "name": "iuserfunctionality.cs",
+                        "type": "file",
+                        "content": "\n- methods:\n- int accountcreate(user user)\n- int loginaccount(user user)"
+                      },
+                      {
+                        "name": "databasecontext.cs",
+                        "type": "file",
+                        "content": "\n- class name: databasecontext\n- connection string: \"data source=\"\";initial catalog=\"\";integrated security=true;encrypt=false;\"\n- dbset properties: users, tasks"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "content": "Root Folder"
+      }
+    ],
+    "content": "Solution Name"
+  }
+]
 
-Interfaces
-1. ITaskfunctionality:
-   - Methods:Task<IEnumerable<TodoTask>> GetUserTasksAsync(int userId),Task<TodoTask> AddTaskAsync(TodoTask task),Task<TodoTask> UpdateTaskAsync(TodoTask task),Task<bool> DeleteTaskAsync(int taskId, int userId),Task<bool> DeleteAllTasksAsync(int userId)
-2. IUserfunctionality:
-   - Methods:int accountCreate(User user),int LoginAccount(User user)
-Service Implementation Classes
-1. TaskOperations:Implements: ITaskfunctionality,Dependencies: DatabaseContext (injected via constructor)
-   - Method Implementations:
-     - GetUserTasksAsync: Returns tasks filtered by userId
-     - AddTaskAsync: Adds new task and returns it
-     - UpdateTaskAsync: Updates existing task if found, returns null if not found
-     - DeleteTaskAsync: Deletes specific task for user, returns boolean success
-     - DeleteAllTasksAsync: Deletes all tasks for user, returns true
-2. UserOperations:Implements: IUserfunctionality,Dependencies: DatabaseContext (injected via constructor)
-   - Method Implementations:
-     - accountCreate: Adds new user and returns SaveChanges result
-     - LoginAccount: Validates credentials and returns user Id or 0 if invalid
 
-Controllers
-1. TaskController:Route: api/[controller],Dependencies: ITaskfunctionality (injected via constructor)
-   - Endpoints:
-     - GET api/task/{userId}: Returns all tasks for user
-     - POST api/task: Creates new task
-     - PUT api/task/{id}: Updates existing task
-     - DELETE api/task/{userId}/{id}: Deletes specific task
-     - DELETE api/task/{userId}: Deletes all tasks for user
-2. UserController:Route: api/[controller],Dependencies: IUserfunctionality (injected via constructor)
-   - Endpoints:
-     - POST api/user/CreateAccount: Creates new user account
-     - POST api/user/AccountLogin: Validates login credentials
 
-5. Implementation Requirements
+
+
+
+
+--------------------------------------------------------script-------------------------------------
+
+v. Solution Structure
+         - Solution Name: TodoApplication
+           - Root Folder: TodoApplication
+               - Project Name: Frontend
+               - Project Path: TodoApplication/TodoApplication/
+                  - Project Name: Components
+                  - Project Path : TodoApplication/TodoApplication/Frontend/
+                    - Project Name: Login:
+                    - Project Path : TodoApplication/TodoApplication/Frontend/Components/ 
+                      - File Name: login.component.ts -Redirects to the Todo page on successful login,Provides a link to the registration page.
+                      - File Name: login.component.html
+                      - File Name: login.component.css 
+                   - Project Name: Register
+                   - Project Path : TodoApplication/TodoApplication/Frontend/Components/ 
+                      - File Name: Register.component.ts -Redirects to the login page on successful registration
+                      - File Name: Register.component.html
+                      - File Name: Register.component.css
+                   - Project Name: todo
+                   - Project Path : TodoApplication/TodoApplication/Frontend/Components/ 
+                      - File Name: todo.component.ts -Displays a list of tasks with filtering options (All, Completed, Overdue, Pending),Allows adding, editing, and deleting tasks, Supports task completion toggling, Provides search and date range filtering.
+                      - File Name: todo.component.html 
+                      - File Name: todo.component.css
+                - Project Name: Services
+                - Project Path : TodoApplication/TodoApplication/Frontend/
+                  - File Name: auth.service.ts - Methods login(username: string, password: string): boolean,register(username: string, password: string): Promise<boolean>,logout(): void,isLoggedIn(): boolean,getCurrentUserId(): number`
+                  - File Name: todo.service.ts - Methods loadTodos(): void,addTodo(title: string, dueDate: string): void,toggleTodo(id: number): void, deleteTodo(id: number): void,editTodo(id: number, newTitle: string, newDueDate: string): void,clearAll(): void
+
+             - Project Name: Backend
+               - Project Path: TodoApplication/TodoApplication/
+                 - File Name: Program.cs
+                 - File Name: Startup.cs
+                 - Project Name: Controllers
+                 - Project Path : TodoApplication/TodoApplication/Backend/
+                   - File Name: TaskController.cs:TaskController:Route: api/[controller],Dependencies: ITaskfunctionality (injected via constructor Endpoints - GET api/task/{userId}: Returns all tasks for user, POST api/task: Creates new task, PUT api/task/{id}: Updates existing task,DELETE api/task/{userId}/{id}: Deletes specific task,DELETE api/task/{userId}: Deletes all tasks for user. note - use exact service file name for DI in the controllers.
+                   - File Name: UserController.cs: UserController:Route: api/[controller],Dependencies: IUserfunctionality (injected via constructor)
+,Endpoints -POST api/user/CreateAccount: Creates new user account, POST api/user/AccountLogin: Validates login credentials. note- use exact service file name for DI in the controllers.
+
+                 - Project Name: Models
+                 - Project Path : TodoApplication/TodoApplication/Backend/
+                   - File Name: User.cs : Id (int, Key),userName (string, nullable),password (string, nullable)
+                   - File Name: TodoTask.cs : Id (int, Key),Title (string, Required),Completed (boolean),DueDate
+                 - Project Name: Service
+                 - Project Path : TodoApplication/TodoApplication/Backend/ 
+                   - File Name: TaskOperations.cs: Implements ITaskfunctionality,Dependencies: DatabaseContext (injected via constructor)
+Method Implementations- GetUserTasksAsync: Returns tasks filtered by userId, AddTaskAsync: Adds new task and returns it,UpdateTaskAsync: Updates existing task if found, returns null if not found,DeleteTaskAsync: Deletes specific task for user, returns boolean success,DeleteAllTasksAsync: Deletes all tasks for user, returns true , final note- all function implementation will take place as Functionality method syntax please follow same and use direct table name for task all operation like add,edit,delete.
+                   - File Name: UserOperations.cs: UserOperations:Implements: IUserfunctionality,Dependencies: DatabaseContext (injected via constructor)
+Method Implementations-accountCreate: Adds new user and returns SaveChanges result,LoginAccount: Validates credentials and returns user Id or 0 if invalid
+final note- all function implementation will take place as Functionality method signature please follow same and use direct table name for all operation like create,login.
+                 - Project Name: Functionality
+                 - Project Path : TodoApplication/TodoApplication/Backend/ 
+                   - File Name: ITaskfunctionality.cs: Methods(Task<IEnumerable<TodoTask>> GetUserTasksAsync(int userId),Task<TodoTask> AddTaskAsync(TodoTask task),Task<TodoTask> UpdateTaskAsync(TodoTask task),Task<bool> DeleteTaskAsync(int taskId, int userId),Task<bool>DeleteAllTasksAsync(int userId)). please stick to the exact method signature and implement interface in service explicitly.
+                   - File Name: IUserfunctionality.cs: Methods(int accountCreate(User user), int LoginAccount(User user)) please stick to the exact method signature and implement interface in service explicitly.
+                 - Project Name: Database
+                 - Project Path :TodoApplication/TodoApplication/Backend/ 
+                   - File Name: DatabaseContext.cs: Class name DatabaseContext,Connection string: "Data Source="";Initial Catalog="";Integrated Security=True;Encrypt=False;" DbSet properties:Users,Tasks. note-no need of using OnmodleCreating class and hashing just keep it simple.  
+
+Vi. Implementation Requirements
 Error Handling
 1. Task creation requires valid UserId (>0)
-2. Task update requires matching Id in route and body
+2. Task update requires matching Id in route and body    
 3. Task deletion requires both userId and taskId
 4. Login returns 0 for invalid credentials
-Response Status Codes
-- 200 OK: Successful operations
-- 201 Created: Successful task creation
-- 400 Bad Request: Invalid input
-- 404 Not Found: Resource not found
-Authentication & Authorization
-- Basic user authentication through username/password
-- Tasks are isolated per user through UserId
-6. Additional Notes
-1. All task operations must verify UserId matches
-2. Database operations should be asynchronous where possible
-3. Use proper dependency injection for all services
-4. Maintain exact variable names as specified
-5. Follow the exact namespace structure: todoappbackend.{Controllers|Models|Service|Functionality|Database}
 
-7. Required Using Statements
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
+vii. Unit Testing
+         - Create unit tests for all service methods
+         - Use a testing framework like xUnit or NUnit
+         - Mock database context using a library like Moq for testing purposes
+
+
+
+
+
+
+
